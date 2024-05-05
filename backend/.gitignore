@@ -1,8 +1,8 @@
 node_modules
 dist
 .env
-.wrangler
 wrangler.toml
+.wrangler
 .dev.vars
 
 # Change them to your taste:
