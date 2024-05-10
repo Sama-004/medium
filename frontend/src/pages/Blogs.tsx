@@ -1,72 +1,39 @@
 import { BlogCard } from "../components/BlogCard";
+import { Blogskeleton } from "../components/BlogSkeleton";
 import { Nav } from "../components/Nav";
+import { useBlogs } from "../hooks";
 
 export const Blogs = () => {
+  const { loading, blogs } = useBlogs();
+  if (loading) {
+    return (
+      <div>
+        <Nav />
+        <div className="flex justify-center">
+          <div>
+            <Blogskeleton />
+            <Blogskeleton />
+            <Blogskeleton />
+            <Blogskeleton />
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div>
       <Nav />
       <div className="flex justify-center">
-        <div className="max-w-xl">
-          <BlogCard
-            authorName={"Samanyu Roy"}
-            title={
-              "How an ugly single page website make $500 a month without affliate marketing"
-            }
-            content={
-              "How does this look How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketin How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing"
-            }
-            publishDate={"27 oct 2020"}
-          />
-          <BlogCard
-            authorName={"Samanyu Roy"}
-            title={
-              "How an ugly single page website make $500 a month without affliate marketing"
-            }
-            content={
-              "How does this look How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketin How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing"
-            }
-            publishDate={"27 oct 2020"}
-          />
-          <BlogCard
-            authorName={"Samanyu Roy"}
-            title={
-              "How an ugly single page website make $500 a month without affliate marketing"
-            }
-            content={
-              "How does this look How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketin How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing"
-            }
-            publishDate={"27 oct 2020"}
-          />
-          <BlogCard
-            authorName={"Samanyu Roy"}
-            title={
-              "How an ugly single page website make $500 a month without affliate marketing"
-            }
-            content={
-              "How does this look How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketin How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing"
-            }
-            publishDate={"27 oct 2020"}
-          />
-          <BlogCard
-            authorName={"Samanyu Roy"}
-            title={
-              "How an ugly single page website make $500 a month without affliate marketing"
-            }
-            content={
-              "How does this look How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketin How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing"
-            }
-            publishDate={"27 oct 2020"}
-          />
-          <BlogCard
-            authorName={"Samanyu Roy"}
-            title={
-              "How an ugly single page website make $500 a month without affliate marketing"
-            }
-            content={
-              "How does this look How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketin How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing How an ugly single page website make $500 a month without affliate marketing"
-            }
-            publishDate={"27 oct 2020"}
-          />
+        <div>
+          {blogs.map((blog) => (
+            <BlogCard
+              id={blog.id}
+              authorName={blog.author.name}
+              title={blog.title}
+              content={blog.content}
+              // publishDate={blog.publishDate}
+            />
+          ))}
         </div>
       </div>
     </div>
