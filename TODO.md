@@ -2,10 +2,10 @@
 --fix overflow of title on author name part
 --loading skeleton in place of loading text /blogs and /blog/:id
 --disable button and uploading skeleton in /create
+--logout avatar
 make bulk public without auth
 reponsive
 delete account route
-logout avatar
 like blog and the time when the blog is posted
 add pagination in bulk
 enter button on signin and signup

@@ -68,7 +68,7 @@ export function Avatar({ name, size }: { name: string; size: string }) {
 
   return (
     <div className="relative inline items-center justify-center">
-      <DropdownMenu>
+      {/* <DropdownMenu>
         <DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>{name}</DropdownMenuLabel>
@@ -90,20 +90,20 @@ export function Avatar({ name, size }: { name: string; size: string }) {
                 />
               </svg>
             </DropdownMenuItem>
-          </DropdownMenuContent>
-          <div
-            className={`relative inline-flex items-center justify-center ${
-              size === "small" ? "w-6 h-6" : "w-10 h-10"
-            }  overflow-hidden bg-gray-600 rounded-full`}>
-            <span
-              className={`${
-                size === "small" ? "text-xs" : "text-md"
-              } font-medium text-white`}>
-              {name[0]}
-            </span>
-          </div>
-        </DropdownMenuTrigger>
-      </DropdownMenu>
+          </DropdownMenuContent> */}
+      <div
+        className={`relative inline-flex items-center justify-center ${
+          size === "small" ? "w-6 h-6" : "w-10 h-10"
+        }  overflow-hidden bg-gray-600 rounded-full`}>
+        <span
+          className={`${
+            size === "small" ? "text-xs" : "text-md"
+          } font-medium text-white`}>
+          {name[0]}
+        </span>
+      </div>
+      {/* </DropdownMenuTrigger>
+      </DropdownMenu> */}
     </div>
   );
 }
