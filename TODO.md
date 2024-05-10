@@ -16,3 +16,7 @@ disable button and uploading skeleton in /create
 sorting the blogs
 cache the blogs so that it does not load everytime you open it
 signup signin skeletons
+
+// Deployment
+make config.ts env var and add the hono link there
+fix nav color (black on landing slate else)

@@ -3,7 +3,7 @@ import { Avatar } from "./BlogCard";
 
 export const Nav = () => {
   return (
-    <div className="border-b flex justify-between px-10 py-4">
+    <div className="border-b border-black flex justify-between px-10 py-4">
       <Link to={"/"} className="flex flex-col justify-center cursor-pointer">
         Medium
       </Link>
