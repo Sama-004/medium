@@ -7,44 +7,54 @@ import { useNavigate } from "react-router-dom";
 export const CreateBlog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  const handlePublish = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        `${BACKEND_URL}/api/v1/blog`,
+        {
+          title,
+          content,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      navigate(`/blog/${response.data.id}`);
+    } catch (error) {
+      console.error("Error publishing post:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <Nav />
       <div className="flex justify-center">
         <div className="max-w-screen-lg w-full pt-10">
           <input
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
+            onChange={(e) => setTitle(e.target.value)}
             type="text"
             placeholder="Your Title"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "></input>
-          <TextEditor
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
-          <button
-            onClick={async () => {
-              const response = await axios.post(
-                `${BACKEND_URL}/api/v1/blog`,
-                {
-                  title,
-                  content,
-                },
-                {
-                  headers: {
-                    Authorization: localStorage.getItem("token"),
-                  },
-                }
-              );
-              navigate(`/blog/${response.data.id}`);
-            }}
-            type="submit"
-            className="mt-2 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg">
-            Publish post
-          </button>
+          <TextEditor onChange={(e) => setContent(e.target.value)} />
+          {loading ? (
+            <LoadingSkeleton />
+          ) : (
+            <button
+              onClick={handlePublish}
+              type="submit"
+              className="mt-2 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg">
+              Publish post
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -77,3 +87,13 @@ function TextEditor({
     </div>
   );
 }
+
+const LoadingSkeleton = () => {
+  return (
+    <div className="flex justify-center mt-2">
+      <div className="animate-pulse inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-gray-300 rounded-lg">
+        Publishing...
+      </div>
+    </div>
+  );
+};

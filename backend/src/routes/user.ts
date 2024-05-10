@@ -17,7 +17,16 @@ userRouter.post("/signup", async (c) => {
   }).$extends(withAccelerate());
 
   const body = await c.req.json();
-
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      email: body.email,
+    },
+  });
+  if (existingUser) {
+    return c.json({
+      error: "A user with this email already exists",
+    });
+  }
   try {
     const hashedPassword = await bcrypt.hash(body.password, 10);
     const user = await prisma.user.create({
@@ -28,7 +37,6 @@ userRouter.post("/signup", async (c) => {
       },
     });
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-
     return c.json({
       jwt,
     });
@@ -59,7 +67,6 @@ userRouter.post("/signin", async (c) => {
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
     return c.json({
       jwt,
-      message: "signed in",
     });
   } else {
     return c.json({

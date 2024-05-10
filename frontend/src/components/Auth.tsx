@@ -8,9 +8,21 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function sendRequest() {
     try {
+      setLoading(true);
+      if (!email || !password) {
+        setError("Email and password are required");
+        return;
+      }
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        setError("Invalid email format");
+        return;
+      }
       const requestData = {
         email,
         password,
@@ -21,10 +33,22 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         requestData
       );
       const jwt = response.data.jwt;
-      localStorage.setItem("token", jwt);
-      navigate("/blogs");
+      if (jwt) {
+        localStorage.setItem("token", jwt);
+        navigate("/blogs");
+      } else {
+        setError("User already exists");
+      }
     } catch (err) {
       //send error
+      console.error("Error:", err);
+      if (err.response && err.response.data && err.response.data.error) {
+        setError(err.response.data.error);
+      } else {
+        setError("Internal server error");
+      }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -76,12 +100,17 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                 setPassword(e.target.value);
               }}
             />
-            <button
-              onClick={sendRequest}
-              type="button"
-              className="text-white mt-6 w-full bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-              {type === "signup" ? "Sign up" : "Sign in"}
-            </button>
+            {error && <div className="text-red-600">{error}</div>}
+            {loading ? (
+              <div className="animate-pulse bg-gray-200 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5 mt-6"></div>
+            ) : (
+              <button
+                onClick={sendRequest}
+                type="button"
+                className="text-white mt-6 w-full bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                {type === "signup" ? "Sign up" : "Sign in"}
+              </button>
+            )}
           </div>
         </div>
       </div>
