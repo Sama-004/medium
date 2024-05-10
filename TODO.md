@@ -20,3 +20,4 @@ signup signin skeletons
 // Deployment
 make config.ts env var and add the hono link there
 fix nav color (black on landing slate else)
+signup and singin page errors

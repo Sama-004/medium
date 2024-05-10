@@ -1,6 +1,8 @@
 import { Nav } from "../components/Nav";
+import { useNavigate } from "react-router-dom";
 
 export const Landing = () => {
+  const navigate = useNavigate();
   return (
     <div className="bg-yellow-custom h-screen flex flex-col justify-between">
       <div className="bg-yellow-custom">
@@ -13,6 +15,7 @@ export const Landing = () => {
         </h2>
         <button
           type="button"
+          onClick={() => navigate("/signup")}
           className="w-56 py-2 px-4 me-2 mb-2 text-xl text-center text-white font-medium focus:outline-none bg-black rounded-full mt-6">
           Start reading
         </button>

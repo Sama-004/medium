@@ -5,14 +5,20 @@ import { BACKEND_URL } from "../../config";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function sendRequest() {
     try {
+      const requestData = {
+        email,
+        password,
+        ...(type === "signup" && { name }),
+      };
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/auth/${type === "signin" ? "signin" : "signup"}`,
-        { email, password }
+        requestData
       );
       const jwt = response.data.jwt;
       localStorage.setItem("token", jwt);
@@ -27,7 +33,9 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
       <div className="flex justify-center">
         <div>
           <div className="px-10">
-            <div className="text-3xl font-bold ">Create an account</div>
+            <div className="text-3xl font-bold ">
+              {type === "signin" ? "Login" : "Create an account"}
+            </div>
             <div className="text-slate-500">
               {type === "signin"
                 ? "Don't have an account"
@@ -39,7 +47,19 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               </Link>
             </div>
           </div>
-          <div className="pt-8">
+          {type === "signin" ? null : (
+            <div className="pt-8">
+              <LabelledInput
+                label="username"
+                type="name"
+                placeholder="Joselu 14"
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+            </div>
+          )}
+          <div className="pt-3">
             <LabelledInput
               label="Email"
               type="Email"
