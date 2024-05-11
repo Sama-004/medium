@@ -74,3 +74,44 @@ userRouter.post("/signin", async (c) => {
     });
   }
 });
+
+userRouter.delete("/delete", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+  const authHeader = c.req.header("Authorization") || "";
+  try {
+    const user = await verify(authHeader, c.env.JWT_SECRET);
+    if (user) {
+      c.set("userId", user.id);
+      console.log("logged in");
+    } else {
+      c.status(404);
+      return c.json({
+        error: "Not logged in",
+      });
+    }
+    const foundUser = await prisma.user.findUnique({
+      where: {
+        id: user.id,
+      },
+    });
+    if (!foundUser) {
+      return c.json({
+        error: "User not found",
+      });
+    }
+    await prisma.user.delete({
+      where: {
+        id: user.id,
+      },
+    });
+    return c.json({
+      message: "User deleted successfully",
+    });
+  } catch (err) {
+    return c.json({
+      error: "Error while deleting user",
+    });
+  }
+});
