@@ -3,7 +3,6 @@
 --loading skeleton in place of loading text /blogs and /blog/:id
 --disable button and uploading skeleton in /create
 --logout avatar
-make bulk public without auth
 reponsive
 delete account route
 like blog and the time when the blog is posted

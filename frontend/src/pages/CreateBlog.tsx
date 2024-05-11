@@ -18,6 +18,7 @@ export const CreateBlog = () => {
         {
           title,
           content,
+          publishDate: new Date().toISOString(),
         },
         {
           headers: {

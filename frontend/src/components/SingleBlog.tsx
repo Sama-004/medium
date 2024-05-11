@@ -1,6 +1,7 @@
 import { Blog } from "../hooks";
 import { Avatar } from "./BlogCard";
 import { Nav } from "./Nav";
+import { format } from "date-fns";
 
 export const SingleBlog = ({ blog }: { blog: Blog }) => {
   return (
@@ -13,7 +14,9 @@ export const SingleBlog = ({ blog }: { blog: Blog }) => {
             <div className="text-5xl font-extrabold break-words">
               {blog.title}
             </div>
-            <div className="text-slate-500 pt-2">Posted on 12 baje</div>
+            <div className="text-slate-500 pt-2">
+              {format(new Date(blog.publishDate), "do MMMM, h:mm a")}
+            </div>
             <div className="pt-4 break-words">{blog.content}</div>
           </div>
           <div className="col-span-4">

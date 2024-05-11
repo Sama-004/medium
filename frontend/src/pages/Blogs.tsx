@@ -31,7 +31,7 @@ export const Blogs = () => {
               authorName={blog.author.name}
               title={blog.title}
               content={blog.content}
-              // publishDate={blog.publishDate}
+              publishDate={blog.publishDate}
             />
           ))}
         </div>

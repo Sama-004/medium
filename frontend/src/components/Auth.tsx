@@ -40,7 +40,6 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         setError("User already exists");
       }
     } catch (err) {
-      //send error
       console.error("Error:", err);
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
@@ -99,6 +98,11 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  sendRequest();
+                }
+              }}
             />
             {error && <div className="text-red-600">{error}</div>}
             {loading ? (
@@ -122,6 +126,7 @@ interface LabelledInputType {
   label: string;
   placeholder: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   type: string;
 }
 function LabelledInput({
@@ -129,6 +134,7 @@ function LabelledInput({
   type,
   placeholder,
   onChange,
+  onKeyDown,
 }: LabelledInputType) {
   return (
     <div>
@@ -139,6 +145,7 @@ function LabelledInput({
         <input
           type={type || "text"}
           onChange={onChange}
+          onKeyDown={onKeyDown}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           placeholder={placeholder}
         />
