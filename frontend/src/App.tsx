@@ -6,8 +6,18 @@ import { Blogs } from "./pages/Blogs";
 import { CreateBlog } from "./pages/CreateBlog";
 import { Landing } from "./pages/Landing";
 import { Profile } from "./pages/Profile";
+import { RecoilRoot, useRecoilState } from "recoil";
+import { usernameState } from "./recoil";
+import { useEffect } from "react";
 
 function App() {
+  const [username, setUsername] = useRecoilState(usernameState);
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      setUsername(storedUsername);
+    }
+  }, []);
   return (
     <div>
       <BrowserRouter>
@@ -26,4 +36,11 @@ function App() {
   );
 }
 
-export default App;
+function AppWithRecoilRoot() {
+  return (
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
+  );
+}
+export default AppWithRecoilRoot;

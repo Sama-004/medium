@@ -2,6 +2,8 @@ import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../../config";
+import { useRecoilState } from "recoil";
+import { usernameState } from "@/recoil";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [username, setUsername] = useRecoilState(usernameState);
 
   async function sendRequest() {
     try {
@@ -35,6 +38,8 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
       const jwt = response.data.jwt;
       if (jwt) {
         localStorage.setItem("token", jwt);
+        localStorage.setItem("username", response.data.username);
+        setUsername(response.data.username);
         navigate("/blogs");
       } else {
         setError("User already exists");
@@ -75,7 +80,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               <LabelledInput
                 label="username"
                 type="name"
-                placeholder="Joselu 14"
+                placeholder="John Doe"
                 onChange={(e) => {
                   setName(e.target.value);
                 }}

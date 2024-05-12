@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { BlogCard } from "@/components/BlogCard";
 import { Nav } from "@/components/Nav";
 import { Blogskeleton } from "@/components/BlogSkeleton";
+import { Link } from "react-router-dom";
 export const Profile = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -36,11 +37,24 @@ export const Profile = () => {
           <h1 className="text-6xl flex justify-center font-serif mt-10 underline mb-4">
             Your Posts
           </h1>
+          <div className="flex justify-center mb-4">
+            <Link to={"/create"}>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10">
+                New post
+              </button>
+            </Link>
+          </div>
           {loading ? (
             <div>
               <Blogskeleton />
               <Blogskeleton />
               <Blogskeleton />
+            </div>
+          ) : posts.length === 0 ? (
+            <div className="flex justify-center">
+              <p className="text-4xl mt-40 font-bold font-sans">
+                You have not made any post
+              </p>
             </div>
           ) : (
             posts.map((post) => (

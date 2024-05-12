@@ -40,6 +40,7 @@ export const Delete = () => {
         console.error("Error deleting user: ", response.data.error);
       } else {
         localStorage.removeItem("token");
+        localStorage.removeItem("username");
         navigate("/");
       }
     } catch (err) {

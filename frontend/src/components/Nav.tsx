@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Avatar } from "./BlogCard";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { usernameState } from "@/recoil";
 
 import {
   DropdownMenu,
@@ -13,8 +15,10 @@ import {
 
 export const Nav = () => {
   const navigate = useNavigate();
+  const username = useRecoilValue(usernameState);
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
     navigate("/signin");
   };
   const token = localStorage.getItem("token");
@@ -35,9 +39,9 @@ export const Nav = () => {
             </Link>
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <Avatar name="Samanyu" size={"big"} />
+                <Avatar name={username} size={"big"} />
                 <DropdownMenuContent>
-                  <DropdownMenuLabel>My profile</DropdownMenuLabel>
+                  <DropdownMenuLabel>{username}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => navigate("/profile")}>
                     Profile
