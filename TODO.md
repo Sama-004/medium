@@ -6,19 +6,21 @@
 --time when the blog is posted
 --signup signin skeletons
 --avatar dropdown Nav
-delete account route
+--use recoil for state management (useful for nav)
+--enter button on signin and signup
+--delete account route
 delete blog
+publish post on enter
+Use types in blog card when type is delete then display hover for delete button
+show message on /blog/:id when not found
 like blog
 add pagination in bulk
-enter button on signin and signup
 auth middleware skeleton / not logged in message
-avatar like and date
 content slice check in blog card component
 add zod validation in backend
-read more button in blog display
+read more button in blog bulk display
 cache the blogs so that it does not load everytime you open it
 reponsive
-use recoil for state management (useful for nav)
 sort by option on /blogs
 profile page
 

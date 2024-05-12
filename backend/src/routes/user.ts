@@ -83,19 +83,19 @@ userRouter.delete("/delete", async (c) => {
   }).$extends(withAccelerate());
   const authHeader = c.req.header("Authorization") || "";
   try {
-    const user = await verify(authHeader, c.env.JWT_SECRET);
-    if (user) {
-      c.set("userId", user.id);
-      console.log("logged in");
-    } else {
-      c.status(404);
+    const payload = await verify(authHeader, c.env.JWT_SECRET);
+    console.log("payload:", payload);
+    const userId = payload && payload.id;
+    console.log(userId);
+    if (!userId) {
+      c.status(401);
       return c.json({
         error: "Not logged in",
       });
     }
     const foundUser = await prisma.user.findUnique({
       where: {
-        id: user.id,
+        id: userId,
       },
     });
     if (!foundUser) {
@@ -103,15 +103,21 @@ userRouter.delete("/delete", async (c) => {
         error: "User not found",
       });
     }
+    await prisma.post.deleteMany({
+      where: {
+        authorId: userId,
+      },
+    });
     await prisma.user.delete({
       where: {
-        id: user.id,
+        id: userId,
       },
     });
     return c.json({
       message: "User deleted successfully",
     });
   } catch (err) {
+    console.error(err);
     return c.json({
       error: "Error while deleting user",
     });

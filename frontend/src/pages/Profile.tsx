@@ -8,6 +8,13 @@ import { Link } from "react-router-dom";
 export const Profile = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const handleDelete = async (id: string) => {
+    try {
+      console.log("Delete: ", id);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -64,6 +71,8 @@ export const Profile = () => {
                 title={post.title}
                 content={post.content}
                 publishDate={post.publishDate}
+                onDelete={() => handleDelete(post.id)}
+                showDelete={true}
               />
             ))
           )}
