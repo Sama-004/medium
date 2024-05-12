@@ -39,7 +39,9 @@ export const Nav = () => {
                 <DropdownMenuContent>
                   <DropdownMenuLabel>My profile</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/profile")}>
+                    Profile
+                  </DropdownMenuItem>
                   <DropdownMenuItem
                     className="text-red-600"
                     onClick={handleLogout}>

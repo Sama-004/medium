@@ -115,3 +115,56 @@ userRouter.delete("/delete", async (c) => {
     });
   }
 });
+
+userRouter.get("/profile", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+  const authHeader = c.req.header("Authorization") || "";
+  if (!authHeader) {
+    return c.json({
+      error: "Token is required",
+    });
+  }
+  let userId;
+  try {
+    const decoded = await verify(authHeader, c.env.JWT_SECRET);
+    userId = decoded.id;
+  } catch (error) {
+    return c.json({
+      error: "Invalid token",
+    });
+  }
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        posts: {
+          where: {
+            Published: false,
+          },
+          select: {
+            id: true,
+            title: true,
+            content: true,
+            publishDate: true,
+            author: {
+              select: {
+                name: true, // Include author's name
+              },
+            },
+          },
+        },
+      },
+    });
+    return c.json({
+      posts: user?.posts,
+    });
+  } catch (err) {
+    return c.json({
+      error: "Error while fetching posts",
+    });
+  }
+});
