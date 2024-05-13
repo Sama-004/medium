@@ -61,7 +61,7 @@ blogRouter.post("/", async (c) => {
   }
 });
 
-blogRouter.put("/:id", async (c) => {
+blogRouter.put("/edit/:id", async (c) => {
   const postId = c.req.param("id");
   const body = await c.req.json();
   const prisma = new PrismaClient({
@@ -75,6 +75,7 @@ blogRouter.put("/:id", async (c) => {
       data: {
         title: body.title,
         content: body.content,
+        publishDate: body.publishDate,
       },
     });
     return c.json({

@@ -9,6 +9,7 @@ import { Profile } from "./pages/Profile";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { usernameState } from "./recoil";
 import { useEffect } from "react";
+import { EditBlog } from "./pages/EditBlog";
 
 function App() {
   const [username, setUsername] = useRecoilState(usernameState);
@@ -28,6 +29,7 @@ function App() {
           <Route path="/delete/user" element={<Delete />} />
           <Route path="/blog/:id" element={<Blog />} />
           <Route path="/blogs" element={<Blogs />} />
+          <Route path="/edit/:id" element={<EditBlog />} />
           <Route path="/create" element={<CreateBlog />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>

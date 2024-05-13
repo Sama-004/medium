@@ -17,7 +17,10 @@ export const SingleBlog = ({ blog }: { blog: Blog }) => {
             <div className="text-slate-500 pt-2">
               {format(new Date(blog.publishDate), "do MMMM, h:mm a")}
             </div>
-            <div className="pt-4 break-words">{blog.content}</div>
+            {/* <div className="pt-4 break-words">{blog.content}</div> */}
+            <pre className="pt-4 break-words whitespace-pre-wrap">
+              {blog.content}
+            </pre>
           </div>
           <div className="col-span-4">
             <div className="text-slate-500">Author</div>
