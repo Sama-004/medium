@@ -5,7 +5,7 @@ import { SingleBlogSkeleton } from "../components/BlogSkeleton";
 
 export const Blog = () => {
   const { id } = useParams();
-  const { loading, blog } = useBlog({
+  const { loading, blog, error } = useBlog({
     id: id || "",
   });
   if (loading) {
@@ -17,7 +17,7 @@ export const Blog = () => {
   }
   return (
     <div>
-      <SingleBlog blog={blog} />
+      <SingleBlog blog={blog} error={error} />
     </div>
   );
 };

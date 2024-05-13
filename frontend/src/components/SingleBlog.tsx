@@ -3,7 +3,20 @@ import { Avatar } from "./BlogCard";
 import { Nav } from "./Nav";
 import { format } from "date-fns";
 
-export const SingleBlog = ({ blog }: { blog: Blog }) => {
+export const SingleBlog = ({
+  blog,
+  error,
+}: {
+  blog: Blog;
+  error: string | undefined;
+}) => {
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p className="text-red-600 text-7xl font-JetBrains">{error}</p>
+      </div>
+    );
+  }
   return (
     <div>
       <Nav />

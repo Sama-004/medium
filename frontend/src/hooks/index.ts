@@ -15,6 +15,7 @@ export interface Blog {
 export const useBlog = ({ id }: { id: string }) => {
   const [loading, setLoading] = useState(true);
   const [blog, setBlog] = useState<Blog>();
+  const [error, setError] = useState<string>();
   useEffect(() => {
     axios
       .get(`${BACKEND_URL}/api/v1/blog/${id}`, {
@@ -23,13 +24,22 @@ export const useBlog = ({ id }: { id: string }) => {
         },
       })
       .then((response) => {
-        setBlog(response.data.blog);
+        if (response.data.blog) {
+          setBlog(response.data.blog);
+        } else {
+          setError("Blog not found");
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError("An error occurred while fetching the blog");
         setLoading(false);
       });
   }, [id]);
   return {
     loading,
     blog,
+    error,
   };
 };
 
