@@ -12,9 +12,9 @@
 --delete blog
 --delete blog dropdown
 --refresh when blog is deleted
-publish post on enter
-Stop users from publishing empty blog
-Use types in blog card when type is delete then display hover for delete button
+--profile page
+--Use types in blog card when type is delete then display hover for delete button
+--Stop users from publishing empty blog
 show message on /blog/:id when not found
 like blog
 add pagination in bulk
@@ -25,7 +25,6 @@ read more button in blog bulk display
 cache the blogs so that it does not load everytime you open it
 reponsive
 sort by option on /blogs
-profile page
 
 // Deployment
 --signup and singin page errors

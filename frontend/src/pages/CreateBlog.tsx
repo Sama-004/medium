@@ -8,10 +8,18 @@ export const CreateBlog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handlePublish = async () => {
     setLoading(true);
+
+    if (title.trim() === "" || content.trim() === "") {
+      setErrorMessage("Title and content cannot be empty");
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/blog`,
@@ -29,6 +37,7 @@ export const CreateBlog = () => {
       navigate(`/blog/${response.data.id}`);
     } catch (error) {
       console.error("Error publishing post:", error);
+      setErrorMessage("Error publishing post");
     } finally {
       setLoading(false);
     }
@@ -56,6 +65,7 @@ export const CreateBlog = () => {
               Publish post
             </button>
           )}
+          {errorMessage && <p className="text-red-500">{errorMessage}</p>}
         </div>
       </div>
     </div>
