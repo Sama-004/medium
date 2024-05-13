@@ -10,6 +10,8 @@
 --enter button on signin and signup
 --delete account route
 delete blog
+delete blog dropdown
+refresh when blog is deleted
 publish post on enter
 Use types in blog card when type is delete then display hover for delete button
 show message on /blog/:id when not found

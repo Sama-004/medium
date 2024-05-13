@@ -35,7 +35,7 @@ export const Profile = () => {
       }
     };
     fetchPosts();
-  }, []);
+  }, [setPosts]);
   return (
     <div>
       <Nav />
@@ -66,6 +66,7 @@ export const Profile = () => {
           ) : (
             posts.map((post) => (
               <BlogCard
+                type="profile"
                 id={post.id}
                 authorName={post.author.name}
                 title={post.title}
@@ -73,6 +74,7 @@ export const Profile = () => {
                 publishDate={post.publishDate}
                 onDelete={() => handleDelete(post.id)}
                 showDelete={true}
+                handleDelete={handleDelete}
               />
             ))
           )}
