@@ -4,7 +4,7 @@ import { Nav } from "../components/Nav";
 import { useBlogs } from "../hooks";
 
 export const Blogs = () => {
-  const { loading, blogs } = useBlogs();
+  const { loading, blogs, error } = useBlogs();
   if (loading) {
     return (
       <div>
@@ -23,19 +23,25 @@ export const Blogs = () => {
   return (
     <div>
       <Nav />
-      <div className="flex justify-center">
-        <div>
-          {blogs.map((blog) => (
-            <BlogCard
-              id={blog.id}
-              authorName={blog.author.name}
-              title={blog.title}
-              content={blog.content}
-              publishDate={blog.publishDate}
-            />
-          ))}
+      {error ? (
+        <div className="flex items-center justify-center h-screen">
+          <p className="text-red-500 text-2xl">{error}</p>
         </div>
-      </div>
+      ) : (
+        <div className="flex justify-center">
+          <div>
+            {blogs.map((blog) => (
+              <BlogCard
+                id={blog.id}
+                authorName={blog.author.name}
+                title={blog.title}
+                content={blog.content}
+                publishDate={blog.publishDate}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

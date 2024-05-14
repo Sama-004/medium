@@ -34,6 +34,7 @@ export const useBlog = ({ id }: { id: string }) => {
       .catch((error) => {
         setError("An error occurred while fetching the blog");
         setLoading(false);
+        console.error("Error", error);
       });
   }, [id]);
   return {
@@ -46,6 +47,7 @@ export const useBlog = ({ id }: { id: string }) => {
 export const useBlogs = () => {
   const [loading, setLoading] = useState(true);
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [error, setError] = useState<string>();
   useEffect(() => {
     axios
       .get(`${BACKEND_URL}/api/v1/blog/bulk`, {
@@ -56,10 +58,16 @@ export const useBlogs = () => {
       .then((response) => {
         setBlogs(response.data.blogs);
         setLoading(false);
+      })
+      .catch((error) => {
+        setError("An error occurred while fetching the blog");
+        setLoading(false);
+        console.error("Error", error);
       });
   }, []);
   return {
     loading,
     blogs,
+    error,
   };
 };

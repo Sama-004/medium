@@ -13,7 +13,7 @@ export const SingleBlog = ({
   if (error) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p className="text-red-600 text-7xl font-JetBrains">{error}</p>
+        <p className="text-red-600 text-4xl">{error}</p>
       </div>
     );
   }

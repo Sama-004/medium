@@ -17,9 +17,6 @@ module.exports = {
       },
     },
     extend: {
-      fontFamily: {
-        JetBrains: ["JetBrains Mono"],
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

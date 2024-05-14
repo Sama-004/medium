@@ -79,7 +79,17 @@ export const BlogCard = ({
           </div>
         </div>
         <div className="text-xl font-semibold pt-2">{title}</div>
-        <div className="text-md font-thin">{content.slice(0, 100) + "..."}</div>
+        <div className="text-md font-thin">
+          {content.length > 100 ? (
+            <>
+              {content.slice(0, 100)}
+              <span className="text-blue-500 font-normal hover:cursor-pointer">
+                {" "}
+                Read more
+              </span>
+            </>
+          ) : null}
+        </div>
         <div className="text-slate-600 text-sm pt-4">{`${Math.ceil(
           content.length / 100
         )} minute read`}</div>

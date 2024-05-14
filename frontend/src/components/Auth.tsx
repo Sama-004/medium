@@ -33,7 +33,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
       };
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/auth/${type === "signin" ? "signin" : "signup"}`,
-        requestData
+        requestData,
       );
       const jwt = response.data.jwt;
       if (jwt) {
@@ -70,7 +70,8 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                 : "Already have an account?"}
               <Link
                 to={type === "signin" ? "/signup" : "/signin"}
-                className="underline pl-2">
+                className="underline pl-2"
+              >
                 {type === "signin" ? "Register" : "Login"}
               </Link>
             </div>
@@ -116,7 +117,8 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
               <button
                 onClick={sendRequest}
                 type="button"
-                className="text-white mt-6 w-full bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+                className="text-white mt-6 w-full bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+              >
                 {type === "signup" ? "Sign up" : "Sign in"}
               </button>
             )}
