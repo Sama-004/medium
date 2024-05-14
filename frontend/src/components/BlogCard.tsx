@@ -23,9 +23,9 @@ interface BlogCardProps {
   content: string;
   publishDate: string;
   id: string;
-  type: string;
-  onDelete: () => void;
-  showDelete: boolean;
+  type?: string;
+  onDelete?: () => void;
+  showDelete?: boolean;
 }
 
 export const BlogCard = ({
@@ -53,7 +53,9 @@ export const BlogCard = ({
       );
       if (response.status === 200) {
         console.log("Post deleted successfully");
-        onDelete();
+        if (onDelete) {
+          onDelete();
+        }
       } else {
         console.log("Failed to delete post");
       }
