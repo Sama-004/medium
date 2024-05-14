@@ -6,7 +6,8 @@ import { Nav } from "@/components/Nav";
 import { Blogskeleton } from "@/components/BlogSkeleton";
 import { Link } from "react-router-dom";
 export const Profile = () => {
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const handleDelete = async (id: string) => {
     try {
@@ -96,3 +97,13 @@ export const Profile = () => {
     </div>
   );
 };
+
+interface Post {
+  id: string;
+  author: {
+    name: string;
+  };
+  title: string;
+  content: string;
+  publishDate: string;
+}

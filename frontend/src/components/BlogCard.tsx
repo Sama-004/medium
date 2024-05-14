@@ -22,9 +22,10 @@ interface BlogCardProps {
   title: string;
   content: string;
   publishDate: string;
-  id: number;
+  id: string;
   type: string;
   onDelete: () => void;
+  showDelete: boolean;
 }
 
 export const BlogCard = ({
