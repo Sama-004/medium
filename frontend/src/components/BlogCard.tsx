@@ -24,6 +24,7 @@ interface BlogCardProps {
   publishDate: string;
   id: number;
   type: string;
+  onDelete: () => void;
 }
 
 export const BlogCard = ({
@@ -33,6 +34,7 @@ export const BlogCard = ({
   content,
   type,
   publishDate,
+  onDelete,
 }: BlogCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -50,7 +52,7 @@ export const BlogCard = ({
       );
       if (response.status === 200) {
         console.log("Post deleted successfully");
-        window.location.reload();
+        onDelete();
       } else {
         console.log("Failed to delete post");
       }

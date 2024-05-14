@@ -10,9 +10,22 @@ export const Profile = () => {
   const [loading, setLoading] = useState(true);
   const handleDelete = async (id: string) => {
     try {
-      console.log("Delete: ", id);
-    } catch (err) {
-      console.error(err);
+      const token = localStorage.getItem("token");
+      const response = await axios.delete(
+        `${BACKEND_URL}/api/v1/blog/delete/${id}`,
+        {
+          headers: { Authorization: `${token}` },
+        }
+      );
+      if (response.status === 200) {
+        console.log("Post deleted successfully");
+        // Remove deleted post from state
+        setPosts(posts.filter((post) => post.id !== id));
+      } else {
+        console.log("Failed to delete post");
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
     }
   };
   useEffect(() => {
@@ -35,7 +48,7 @@ export const Profile = () => {
       }
     };
     fetchPosts();
-  }, [setPosts]);
+  }, []);
   return (
     <div>
       <Nav />
@@ -72,9 +85,9 @@ export const Profile = () => {
                 title={post.title}
                 content={post.content}
                 publishDate={post.publishDate}
+                // handleDelete={handleDelete}
                 onDelete={() => handleDelete(post.id)}
                 showDelete={true}
-                handleDelete={handleDelete}
               />
             ))
           )}
