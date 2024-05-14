@@ -93,7 +93,9 @@ export const BlogCard = ({
                 Read more
               </span>
             </>
-          ) : null}
+          ) : (
+            content
+          )}
         </div>
         <div className="text-slate-600 text-sm pt-4">{`${Math.ceil(
           content.length / 100
