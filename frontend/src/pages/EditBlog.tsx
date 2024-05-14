@@ -45,7 +45,14 @@ export const EditBlog = () => {
           },
         }
       );
-      navigate(`/blog/${id}`);
+      if (response.status === 200) {
+        navigate(`/blog/${id}`);
+      } else {
+        console.error(
+          "Error publishing post: Server responded with status",
+          response.status
+        );
+      }
     } catch (error) {
       console.error("Error publishing post:", error);
     } finally {

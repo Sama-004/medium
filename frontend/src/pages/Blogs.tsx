@@ -56,7 +56,7 @@ export const Blogs = () => {
           <div>
             {sortedBlogs.map((blog) => (
               <BlogCard
-                id={blog.id}
+                id={blog.id.toString()}
                 authorName={blog.author.name}
                 title={blog.title}
                 content={blog.content}

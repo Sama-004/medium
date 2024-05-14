@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { EditBlog } from "./pages/EditBlog";
 
 function App() {
-  const [username, setUsername] = useRecoilState(usernameState);
+  const [, setUsername] = useRecoilState(usernameState);
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
     if (storedUsername) {
